@@ -1,0 +1,10 @@
+{
+  "private": true,
+  "engines": {
+    "node": ">=14",
+    "pnpm": ">=6"
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org"
+  }
+}
