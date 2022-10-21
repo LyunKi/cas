@@ -24,6 +24,7 @@ importers:
       nodemon: ^2.0.20
       prisma: ^4.5.0
       redis: ^4.3.1
+      redis-mock: ^0.56.3
       ts-jest: ^29.0.3
       ts-node: ^10.9.1
       ts-node-dev: ^2.0.0
@@ -44,6 +45,7 @@ importers:
       jest-environment-node: 29.2.1
       nodemon: 2.0.20
       prisma: 4.5.0
+      redis-mock: 0.56.3
       ts-jest: 29.0.3_7yfpbkrrkkmtlepb2un4d37cti
       ts-node: 10.9.1_id5sxmpllzol2kp2zgqrnepaum
       ts-node-dev: 2.0.0_id5sxmpllzol2kp2zgqrnepaum
@@ -5110,6 +5112,11 @@ packages:
     engines: {node: '>=8.10.0'}
     dependencies:
       picomatch: 2.3.1
+    dev: true
+
+  /redis-mock/0.56.3:
+    resolution: {integrity: sha512-ynaJhqk0Qf3Qajnwvy4aOjS4Mdf9IBkELWtjd+NYhpiqu4QCNq6Vf3Q7c++XRPGiKiwRj9HWr0crcwy7EiPjYQ==}
+    engines: {node: '>=6'}
     dev: true
 
   /redis/4.3.1:

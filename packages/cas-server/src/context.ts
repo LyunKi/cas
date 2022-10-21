@@ -16,5 +16,8 @@ export interface Context {
 }
 
 export async function createContext() {
+  if (!redis.isReady) {
+    await redis.connect()
+  }
   return { prisma, redis }
 }

@@ -1,6 +1,6 @@
 import { ApolloServer } from '@apollo/server'
 import { startStandaloneServer } from '@apollo/server/standalone'
-import { createContext, redis } from './context'
+import { createContext } from './context'
 import fs from 'fs'
 import util from 'util'
 import { resolvers } from './resolvers'
@@ -9,8 +9,6 @@ async function main() {
   const typeDefs = await util.promisify(fs.readFile)('src/schema.gql', {
     encoding: 'utf8',
   })
-
-  await redis.connect()
 
   const server = new ApolloServer({
     typeDefs,

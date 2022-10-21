@@ -12,5 +12,5 @@
       "@cas-server/*": ["./src/*"]
     }
   },
-  "include": ["src", "tests"]
+  "include": ["src", "tests", "config/jest"]
 }
