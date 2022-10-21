@@ -1,0 +1,24 @@
+type LoginRsp {
+  st: String!
+  tgt: String!
+}
+
+type LoginReq {
+  account: String!
+  service: String!
+  password: String!
+}
+
+type LogoutReq {
+  st: String!
+  service: String!
+  invalidateTgtFlag: Boolean
+}
+
+type Mutation {
+  sendSms(mobile: String!): String!
+}
+
+type Query {
+  ping: String!
+}

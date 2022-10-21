@@ -1,24 +1,26 @@
-import { ApolloServer } from '@apollo/server';
-import { startStandaloneServer } from '@apollo/server/standalone';
+import { ApolloServer } from '@apollo/server'
+import { startStandaloneServer } from '@apollo/server/standalone'
+import { createContext } from './context'
+import fs from 'fs'
+import util from 'util'
+import { resolvers } from './resolvers'
 
-const typeDefs = `#graphql
-  type Query {
-    a: String
-  }
-  type Mutation {
-    sendSms(mobile: String!): String
-  }
-`;
+async function main() {
+  const typeDefs = await util.promisify(fs.readFile)('src/schema.gql', {
+    encoding: 'utf8',
+  })
 
-const resolvers = {};
+  const server = new ApolloServer({
+    typeDefs,
+    resolvers,
+  })
 
-const server = new ApolloServer({
-  typeDefs,
-  resolvers,
-});
+  const { url } = await startStandaloneServer(server, {
+    listen: { port: 4000 },
+    context: createContext,
+  })
 
-const { url } = await startStandaloneServer(server, {
-  listen: { port: 4000 },
-});
+  console.log(`🚀  Server ready at: ${url}`)
+}
 
-console.log(`🚀  Server ready at: ${url}`);
+main()

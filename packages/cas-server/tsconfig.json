@@ -3,8 +3,13 @@
   "compilerOptions": {
     "module": "ESNext",
     "esModuleInterop": true,
-    "rootDir": "src",
-    "target": "ES2017",
-    "outDir": "dist"
-  }
+    "rootDir": ".",
+    "target": "ESNext",
+    "outDir": "dist",
+    "baseUrl": ".",
+    "paths": {
+      "@cas-server/*": ["./src/*"]
+    }
+  },
+  "include": ["src", "tests"]
 }

@@ -17,19 +17,19 @@ enum Gender {
 }
 
 model User {
-  id        Int      @id @default(autoincrement())
+  id        Int       @id @default(autoincrement())
   password  String
-  mobile    String?  @unique
-  emial     String   @unique
+  mobile    String?   @unique
+  emial     String?   @unique
   avatar    String?
-  firstName String?
-  lastName  String?
+  firstName String?   @map("first_name")
+  lastName  String?   @map("last_name")
   provider  String?
-  gender    Gender   @default(UNKNOWN)
-  createdBy String?  @default("SYSTEM")
-  updatedBy String   @default("SYSTEM")
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  gender    Gender?   @default(UNKNOWN)
+  createdBy String?   @default("SYSTEM") @map("created_by")
+  updatedBy String?   @default("SYSTEM") @map("updated_by")
+  createdAt DateTime? @default(now()) @map("created_at")
+  updatedAt DateTime? @updatedAt @map("updated_at")
 
   @@index([createdAt])
   @@index([updatedAt])
