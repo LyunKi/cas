@@ -8,15 +8,17 @@
     "compile": "tsc",
     "test": "jest",
     "test:watch": "jest --watch",
-    "start": "pnpm compile && node ./dist/index.js",
-    "dev": "nodemon -I --exec node --experimental-specifier-resolution=node  --loader ts-node/esm ./src/index.ts"
+    "start": "pnpm compile && node -r dotenv/config ./dist/index.js",
+    "dev": "nodemon -I --exec node --experimental-specifier-resolution=node  --loader ts-node/esm -r dotenv/config ./src/index.ts"
   },
   "keywords": [],
   "license": "MIT",
   "dependencies": {
     "@apollo/server": "^4.0.0",
     "@prisma/client": "^4.5.0",
-    "graphql": "^16.6.0"
+    "dotenv": "^16.0.3",
+    "graphql": "^16.6.0",
+    "redis": "^4.3.1"
   },
   "devDependencies": {
     "@cloud-dragon/eslint-config": "0.2.0",
