@@ -1,3 +1,4 @@
+import fs from 'fs'
 import { ApolloServer } from '@apollo/server'
 import { createContext, redis } from '@cas-server/context'
 import { resolvers } from '@cas-server/resolvers'
@@ -6,7 +7,6 @@ import {
   SMS_CODE_EXPIRE,
   generateSmsCode,
 } from '@cas-server/resolvers/sms'
-import fs from 'fs'
 
 describe('Cas server', () => {
   const typeDefs = fs.readFileSync('src/schema.gql', {

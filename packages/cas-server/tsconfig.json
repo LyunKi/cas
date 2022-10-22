@@ -2,10 +2,8 @@
   "extends": "@cloud-dragon/tsconfig-node",
   "compilerOptions": {
     "module": "ESNext",
-    "moduleResolution": "node",
     "esModuleInterop": true,
     "rootDir": ".",
-    "target": "ESNext",
     "noImplicitAny": false,
     "outDir": "dist",
     "baseUrl": ".",
