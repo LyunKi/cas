@@ -2,9 +2,9 @@ import { PrismaClient } from '@prisma/client'
 import { I18n } from 'i18n-js/dist/require'
 import { createClient } from 'redis'
 import { AcceptLanguageParser } from '@cloud-dragon/common-utils'
+import type { I18nOptions } from 'i18n-js/typings'
 import { DEFAULT_LOCALE, SUPPORTED_LOCALES } from './common/constants'
 import { translations } from './i18n'
-import type { I18nOptions } from 'i18n-js/typings'
 
 const prisma = new PrismaClient()
 
