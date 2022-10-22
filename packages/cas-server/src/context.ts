@@ -4,6 +4,7 @@ import { createClient } from 'redis'
 import { AcceptLanguageParser } from '@cloud-dragon/common-utils'
 import { DEFAULT_LOCALE, SUPPORTED_LOCALES } from './common/constants'
 import { translations } from './i18n'
+import type { I18nOptions } from 'i18n-js/typings'
 
 const prisma = new PrismaClient()
 
@@ -23,7 +24,7 @@ i18n.missingBehavior = 'guess'
 export interface Context {
   prisma: PrismaClient
   redis: typeof redis
-  i18n: typeof i18n
+  i18nOptions: I18nOptions
 }
 
 export async function createContext(args) {
@@ -33,12 +34,13 @@ export async function createContext(args) {
     acceptLanguage,
     SUPPORTED_LOCALES
   )
+  const i18nOptions: any = {}
   if (optimalLocale) {
-    i18n.locale = optimalLocale
+    i18nOptions.locale = optimalLocale
   }
 
   if (!redis.isReady) {
     await redis.connect()
   }
-  return { prisma, redis, i18n }
+  return { prisma, redis, i18nOptions }
 }
