@@ -20,9 +20,16 @@ describe('Cas server', () => {
     jest.restoreAllMocks()
   })
   it('should start successfully', async () => {
-    const response = await testServer.executeOperation({
-      query: 'query healthCheck { ping }',
-    })
+    const response = await testServer.executeOperation(
+      {
+        query: 'query HealthCheck { ping }',
+      },
+      {
+        contextValue: await createContext({
+          req: { headers: { 'accept-language': 'en' } },
+        }),
+      }
+    )
     expect(response.body.kind).toBe('single')
     expect((response.body as any).singleResult.errors).toBeUndefined()
     expect((response.body as any).singleResult.data.ping).toBe('pong')
@@ -41,7 +48,9 @@ describe('Cas server', () => {
         variables: { mobile: testMobile },
       },
       {
-        contextValue: await createContext(),
+        contextValue: await createContext({
+          req: { headers: { 'accept-language': 'en' } },
+        }),
       }
     )
     expect(response.body.kind).toBe('single')

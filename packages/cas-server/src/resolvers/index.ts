@@ -1,9 +1,10 @@
+import type { Context } from '../context'
 import { sendSms } from './sms'
 
 export const resolvers = {
   Query: {
-    ping: () => {
-      return 'pong'
+    ping: (_parent, _args, context: Context) => {
+      return context.i18n?.t('pong')
     },
   },
   Mutation: {
