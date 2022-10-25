@@ -41,12 +41,14 @@ describe('Cas server', () => {
     const testMobile = '+8617766188133'
     const response = await server.executeOperation(
       {
-        query: `
-      mutation Mutation($mobile: String!) {
-        sendSms(mobile: $mobile)
-      }
-      `,
-        variables: { mobile: testMobile },
+        query: `mutation Mutation($req: SendSmsReq!) {
+          sendSms(req: $req)
+        }`,
+        variables: {
+          req: {
+            mobile: testMobile,
+          },
+        },
       },
       {
         contextValue: await createContext({

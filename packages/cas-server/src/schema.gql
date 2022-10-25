@@ -15,8 +15,12 @@ type LogoutReq {
   invalidateTgtFlag: Boolean
 }
 
+input SendSmsReq {
+  mobile: String!
+}
+
 type Mutation {
-  sendSms(mobile: String!): String!
+  sendSms(req: SendSmsReq!): String!
 }
 
 type Query {

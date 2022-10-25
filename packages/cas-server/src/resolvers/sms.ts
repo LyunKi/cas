@@ -10,12 +10,15 @@ export function generateSmsKey(mobile: string) {
 
 export const SMS_CODE_EXPIRE = 60
 interface SendSmsArgs {
-  mobile: string
+  req: {
+    mobile: string
+  }
 }
 
 export async function sendSms(_parent, args: SendSmsArgs, context: Context) {
-  const { mobile } = args
+  const { req } = args
   const { redis } = context
+  const { mobile } = req
   const key = generateSmsKey(mobile)
   const code = generateSmsCode(mobile)
   await redis.setEx(key, SMS_CODE_EXPIRE, code)
