@@ -39,14 +39,21 @@ describe('Cas server', () => {
   it("should generate and cache a verification code for user's mobile", async () => {
     const spy = jest.spyOn(redis, 'setEx')
     const testMobile = '+8617766188133'
-    const response = await server.executeOperation({
-      query: `
+    const response = await server.executeOperation(
+      {
+        query: `
       mutation Mutation($mobile: String!) {
         sendSms(mobile: $mobile)
       }
       `,
-      variables: { mobile: testMobile },
-    })
+        variables: { mobile: testMobile },
+      },
+      {
+        contextValue: await createContext({
+          req: { headers: { 'accept-language': 'en' } },
+        }),
+      }
+    )
     expect(response.body.kind).toBe('single')
     expect((response.body as any).singleResult.errors).toBeUndefined()
     expect((response.body as any).singleResult.data.sendSms).toBe(testMobile)

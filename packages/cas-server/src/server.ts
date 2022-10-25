@@ -1,7 +1,7 @@
 import fs from 'fs'
 import { ApolloServer } from '@apollo/server'
-import { redis } from './context'
 import { resolvers } from './resolvers'
+import { ErrorResponsePlugin, LoggerPlugin, ShutdownPlugin } from './plugins'
 
 const typeDefs = fs.readFileSync('src/schema.gql', {
   encoding: 'utf8',
@@ -10,15 +10,5 @@ const typeDefs = fs.readFileSync('src/schema.gql', {
 export const server = new ApolloServer({
   typeDefs,
   resolvers,
-  plugins: [
-    {
-      async serverWillStart() {
-        return {
-          async serverWillStop() {
-            await redis.disconnect()
-          },
-        }
-      },
-    },
-  ],
+  plugins: [ErrorResponsePlugin, LoggerPlugin, ShutdownPlugin],
 })

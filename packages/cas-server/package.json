@@ -7,7 +7,7 @@
   "scripts": {
     "compile": "tsc",
     "postinstall": "pnpm prisma generate",
-    "test": "jest --detectOpenHandles",
+    "test": "jest",
     "test:watch": "jest --watch",
     "start": "pnpm compile && node -r dotenv/config ./dist/index.js",
     "dev": "nodemon -I --exec node --experimental-specifier-resolution=node  --loader ts-node/esm -r dotenv/config ./src/index.ts"
@@ -20,6 +20,7 @@
     "global-agent": "^3.0.0",
     "graphql": "^16.6.0",
     "i18n-js": "^4.1.1",
+    "lodash": "^4.17.21",
     "redis": "^4.3.1"
   },
   "devDependencies": {
@@ -29,6 +30,7 @@
     "@cloud-dragon/tsconfig-node": "0.1.0",
     "@tsconfig/node16-strictest-esm": "^1.0.3",
     "@types/jest": "^29.2.0",
+    "@types/lodash": "^4.14.186",
     "@types/node": "^18.11.2",
     "dotenv": "^16.0.3",
     "eslint": "^8.26.0",
