@@ -1,0 +1,9 @@
+{
+  "extends": "@cloud-dragon/tsconfig-node",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@cas-server/*": ["../src/*"]
+    }
+  }
+}

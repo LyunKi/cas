@@ -5,11 +5,7 @@
     "esModuleInterop": true,
     "rootDir": ".",
     "noImplicitAny": false,
-    "outDir": "dist",
-    "baseUrl": ".",
-    "paths": {
-      "@cas-server/*": ["./src/*"]
-    }
+    "outDir": "dist"
   },
   "include": ["src", "tests", "config/jest"]
 }

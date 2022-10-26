@@ -36,7 +36,7 @@ export async function createContext(args) {
   )
   const i18nOptions: any = {}
   if (optimalLocale) {
-    i18nOptions.locale = optimalLocale
+    i18nOptions.locale = 'zh-CN'
   }
 
   if (!redis.isReady) {

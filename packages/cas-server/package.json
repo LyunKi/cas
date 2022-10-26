@@ -20,8 +20,10 @@
     "global-agent": "^3.0.0",
     "graphql": "^16.6.0",
     "i18n-js": "^4.1.1",
+    "libphonenumber-js": "^1.10.14",
     "lodash": "^4.17.21",
-    "redis": "^4.3.1"
+    "redis": "^4.3.1",
+    "yup": "^0.32.11"
   },
   "devDependencies": {
     "@cloud-dragon/common-utils": "0.3.0",
