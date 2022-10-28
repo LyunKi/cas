@@ -16,5 +16,8 @@ export default {
   },
   errors: {
     internalServerError: 'Internal Server Error',
+    business: {
+      mobileRegistered: 'The typed phone number had been registered',
+    },
   },
 }

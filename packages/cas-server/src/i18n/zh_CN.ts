@@ -16,5 +16,8 @@ export default {
   },
   errors: {
     internalServerError: '服务器内部错误',
+    business: {
+      mobileRegistered: '您输入的手机号已注册',
+    },
   },
 }
