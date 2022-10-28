@@ -7,5 +7,5 @@
     "noImplicitAny": false,
     "outDir": "dist"
   },
-  "include": ["src", "tests", "config/jest"]
+  "include": ["src", "config/jest"]
 }

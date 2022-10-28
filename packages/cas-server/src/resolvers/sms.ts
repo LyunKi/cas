@@ -1,6 +1,7 @@
 import { genCustomError, CustomError } from '../common/error'
 import { ValidationSchema } from '../common/validation'
-import type { Context } from '../context'
+import type { RedisClient } from '../context'
+import type { MutationResolvers } from '../generated/schema'
 
 export function generateSmsCode(mobile: string) {
   return mobile.slice(0, 6)
@@ -10,14 +11,22 @@ export function generateSmsKey(mobile: string) {
   return `sms:${mobile}`
 }
 
-export const SMS_CODE_EXPIRE = 60
-interface SendSmsArgs {
-  req: {
-    mobile: string
-  }
+export async function verifyCode(
+  redis: RedisClient,
+  mobile: string,
+  code: string
+) {
+  const storedCode = await redis.get(generateSmsKey(mobile))
+  return storedCode?.length === 6 && storedCode === code
 }
 
-export async function sendSms(_parent, args: SendSmsArgs, context: Context) {
+export const SMS_CODE_EXPIRE = 60
+
+export const sendSms: MutationResolvers['sendSms'] = async (
+  _parent,
+  args,
+  context
+) => {
   const { req } = args
   const { redis } = context
   const reqSchema = ValidationSchema.load(['mobile'])

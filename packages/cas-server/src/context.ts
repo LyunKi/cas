@@ -15,6 +15,8 @@ export const redis = createClient({
   url: `redis://:${REDIS_PASS}@127.0.0.1/`,
 })
 
+export type RedisClient = typeof redis
+
 export const i18n = new I18n(translations)
 
 i18n.defaultLocale = DEFAULT_LOCALE
@@ -23,7 +25,7 @@ i18n.missingBehavior = 'guess'
 
 export interface Context {
   prisma: PrismaClient
-  redis: typeof redis
+  redis: RedisClient
   i18nOptions: I18nOptions
 }
 

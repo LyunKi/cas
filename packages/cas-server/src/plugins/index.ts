@@ -62,11 +62,13 @@ export const ErrorResponsePlugin: ApolloServerPlugin<Context> = {
   },
 }
 
-export const ShutdownPlugin = {
+export const ShutdownPlugin: ApolloServerPlugin<Context> = {
   async serverWillStart() {
     return {
       async serverWillStop() {
-        await redis.disconnect()
+        if (redis.isReady) {
+          await redis.disconnect()
+        }
       },
     }
   },

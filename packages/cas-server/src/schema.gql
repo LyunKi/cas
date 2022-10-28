@@ -19,8 +19,20 @@ input SendSmsReq {
   mobile: String!
 }
 
+input CreateUserReq {
+  password: String!
+  mobile: String!
+  verificationCode: String!
+  service: String
+}
+
+type CreateUserRsp {
+  id: ID!
+}
+
 type Mutation {
   sendSms(req: SendSmsReq!): String!
+  register(req: CreateUserReq!): CreateUserRsp!
 }
 
 type Query {

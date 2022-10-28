@@ -1,4 +1,5 @@
 import { Context, i18n } from '../context'
+import { register } from './auth'
 import { sendSms } from './sms'
 
 export const resolvers = {
@@ -9,5 +10,6 @@ export const resolvers = {
   },
   Mutation: {
     sendSms,
+    register,
   },
 }

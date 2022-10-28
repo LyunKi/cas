@@ -6,6 +6,7 @@
   "main": "./dist/index.js",
   "scripts": {
     "compile": "tsc",
+    "generate:schema-types": "graphql-codegen",
     "postinstall": "pnpm prisma generate",
     "test": "jest",
     "test:watch": "jest --watch",
@@ -30,6 +31,9 @@
     "@cloud-dragon/eslint-config": "0.3.0",
     "@cloud-dragon/prettier-config": "^0.0.3",
     "@cloud-dragon/tsconfig-node": "0.1.0",
+    "@graphql-codegen/cli": "^2.13.7",
+    "@graphql-codegen/typescript": "^2.8.0",
+    "@graphql-codegen/typescript-resolvers": "^2.7.5",
     "@tsconfig/node16-strictest-esm": "^1.0.3",
     "@types/jest": "^29.2.0",
     "@types/lodash": "^4.14.186",
