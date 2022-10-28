@@ -17,7 +17,7 @@ enum Gender {
 }
 
 model User {
-  id        Int       @id @default(autoincrement())
+  id        String    @id @default(uuid())
   password  String
   mobile    String?   @unique
   emial     String?   @unique
