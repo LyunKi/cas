@@ -5,13 +5,13 @@
   "type": "module",
   "main": "./dist/index.js",
   "scripts": {
-    "compile": "tsc",
-    "generate:schema-types": "graphql-codegen",
     "postinstall": "pnpm prisma generate",
-    "test": "jest",
-    "test:watch": "jest --watch",
+    "compile": "tsc",
     "start": "pnpm compile && node -r dotenv/config ./dist/index.js",
-    "dev": "nodemon -I --exec node --experimental-specifier-resolution=node  --loader ts-node/esm -r dotenv/config ./src/index.ts"
+    "dev": "nodemon -I --exec node --experimental-specifier-resolution=node  --loader ts-node/esm -r dotenv/config ./src/index.ts",
+    "generate:schema-types": "graphql-codegen",
+    "test": "jest",
+    "test:watch": "jest --watch"
   },
   "keywords": [],
   "license": "MIT",
