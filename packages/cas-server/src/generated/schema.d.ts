@@ -16,7 +16,7 @@ export type RequireFields<T, K extends keyof T> = Omit<T, K> & {
 }
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
-  ID: string | number
+  ID: string
   String: string
   Boolean: boolean
   Int: number
@@ -36,7 +36,6 @@ export type CreateUserRsp = {
 }
 
 export type LoginReq = {
-  __typename?: 'LoginReq'
   account: Scalars['String']
   password: Scalars['String']
   service: Scalars['String']
@@ -57,8 +56,13 @@ export type LogoutReq = {
 
 export type Mutation = {
   __typename?: 'Mutation'
+  login: LoginRsp
   register: CreateUserRsp
   sendSms: Scalars['String']
+}
+
+export type MutationLoginArgs = {
+  req: LoginReq
 }
 
 export type MutationRegisterArgs = {
@@ -192,7 +196,7 @@ export type ResolversTypes = ResolversObject<{
   CreateUserReq: CreateUserReq
   CreateUserRsp: ResolverTypeWrapper<CreateUserRsp>
   ID: ResolverTypeWrapper<Scalars['ID']>
-  LoginReq: ResolverTypeWrapper<LoginReq>
+  LoginReq: LoginReq
   LoginRsp: ResolverTypeWrapper<LoginRsp>
   LogoutReq: ResolverTypeWrapper<LogoutReq>
   Mutation: ResolverTypeWrapper<{}>
@@ -224,16 +228,6 @@ export type CreateUserRspResolvers<
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>
 }>
 
-export type LoginReqResolvers<
-  ContextType = Context,
-  ParentType extends ResolversParentTypes['LoginReq'] = ResolversParentTypes['LoginReq']
-> = ResolversObject<{
-  account?: Resolver<ResolversTypes['String'], ParentType, ContextType>
-  password?: Resolver<ResolversTypes['String'], ParentType, ContextType>
-  service?: Resolver<ResolversTypes['String'], ParentType, ContextType>
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>
-}>
-
 export type LoginRspResolvers<
   ContextType = Context,
   ParentType extends ResolversParentTypes['LoginRsp'] = ResolversParentTypes['LoginRsp']
@@ -261,6 +255,12 @@ export type MutationResolvers<
   ContextType = Context,
   ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']
 > = ResolversObject<{
+  login?: Resolver<
+    ResolversTypes['LoginRsp'],
+    ParentType,
+    ContextType,
+    RequireFields<MutationLoginArgs, 'req'>
+  >
   register?: Resolver<
     ResolversTypes['CreateUserRsp'],
     ParentType,
@@ -284,7 +284,6 @@ export type QueryResolvers<
 
 export type Resolvers<ContextType = Context> = ResolversObject<{
   CreateUserRsp?: CreateUserRspResolvers<ContextType>
-  LoginReq?: LoginReqResolvers<ContextType>
   LoginRsp?: LoginRspResolvers<ContextType>
   LogoutReq?: LogoutReqResolvers<ContextType>
   Mutation?: MutationResolvers<ContextType>

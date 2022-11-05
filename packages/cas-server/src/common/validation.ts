@@ -18,8 +18,13 @@ const SCHEMAS = {
       return !!value && MobileLib.isValidPhoneNumber(value)
     },
   }),
-  password: Yup.string().min(1).max(30).required(),
-  verificationCode: Yup.string().length(6).required(),
+  password: Yup.string()
+    .min(1, 'schema.password.limit')
+    .max(30, 'schema.password.limit')
+    .required('schema.password.limit'),
+  verificationCode: Yup.string()
+    .length(6, 'schema.verificationCode.limit')
+    .required('schema.verificationCode.limit'),
   service: Yup.string().nullable(),
 }
 

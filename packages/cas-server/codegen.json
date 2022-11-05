@@ -1,0 +1,12 @@
+{
+  "schema": "./src/schema.gql",
+  "generates": {
+    "./src/generated/schema.d.ts": {
+      "config": {
+        "useIndexSignature": true,
+        "contextType": "../context#Context"
+      },
+      "plugins": ["typescript", "typescript-resolvers"]
+    }
+  }
+}

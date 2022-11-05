@@ -25,7 +25,6 @@ i18n.missingBehavior = 'guess'
 
 export interface Context {
   prisma: PrismaClient
-  redis: RedisClient
   i18nOptions: I18nOptions
 }
 
@@ -44,5 +43,5 @@ export async function createContext(args) {
   if (!redis.isReady) {
     await redis.connect()
   }
-  return { prisma, redis, i18nOptions }
+  return { prisma, i18nOptions }
 }

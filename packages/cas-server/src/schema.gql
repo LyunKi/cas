@@ -3,7 +3,7 @@ type LoginRsp {
   tgt: String!
 }
 
-type LoginReq {
+input LoginReq {
   account: String!
   service: String!
   password: String!
@@ -33,6 +33,7 @@ type CreateUserRsp {
 type Mutation {
   sendSms(req: SendSmsReq!): String!
   register(req: CreateUserReq!): CreateUserRsp!
+  login(req: LoginReq!): LoginRsp!
 }
 
 type Query {

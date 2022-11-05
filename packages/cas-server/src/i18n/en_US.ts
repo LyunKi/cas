@@ -16,8 +16,11 @@ export default {
   },
   errors: {
     internalServerError: 'Internal Server Error',
+    badRequest: 'Bad Request',
     business: {
+      invalid_auth: 'Your login request is invalid',
       mobileRegistered: 'The typed phone number had been registered',
+      reauth: 'Your login session had outdated, please login again',
     },
   },
 }

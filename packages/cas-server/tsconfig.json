@@ -5,7 +5,8 @@
     "esModuleInterop": true,
     "rootDir": ".",
     "noImplicitAny": false,
-    "outDir": "dist"
+    "outDir": "dist",
+    "sourceMap": true
   },
   "include": ["src", "config/jest"]
 }

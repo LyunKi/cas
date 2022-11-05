@@ -16,8 +16,11 @@ export default {
   },
   errors: {
     internalServerError: '服务器内部错误',
+    badRequest: '错误请求',
     business: {
+      invalid_auth: '您的登录信息有误',
       mobileRegistered: '您输入的手机号已注册',
+      reauth: '您的登录信息已过期，请重新登录',
     },
   },
 }

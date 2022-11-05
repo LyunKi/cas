@@ -8,17 +8,27 @@ export const CustomError = {
   INTERNAL_SERVER_ERROR: {
     code: 'INTERNAL_SERVER_ERROR',
     status: 500,
-    message: 'error.internalServerError',
+    message: 'errors.internalServerError',
   },
   INVALID_REQUEST_PARAMS: {
     code: 'BAD_REQUEST',
     status: 400,
-    message: 'error.badRequest',
+    message: 'errors.badRequest',
   },
   MOBILE_REGISTERED_ERROR: {
-    message: 'error.business.mobileRegistered',
+    message: 'errors.business.mobileRegistered',
     code: 'MOBILE_REGISTERED_ERROR',
     status: 409,
+  },
+  INVALID_AUTH: {
+    message: 'errorS.business.invalid_auth',
+    code: 'INVALID_AUTH',
+    status: 401,
+  },
+  REAUTH: {
+    message: 'errorS.business.reauth',
+    code: 'REAUTH',
+    status: 401,
   },
 }
 
@@ -37,6 +47,7 @@ export function genCustomError(parmas: CustomErrorParams) {
   const { message, originalError, extensions, ...rest } = parmas
   const { customError, http, ...restExtensions } = extensions
   const { code, status, message: customErrorMessage } = customError
+  console.log('mobile', message ?? originalError?.message ?? customErrorMessage)
   return new GraphQLError(
     message ??
       originalError?.message ??
