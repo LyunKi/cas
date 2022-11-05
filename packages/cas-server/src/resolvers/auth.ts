@@ -101,7 +101,7 @@ export const login: MutationResolvers['login'] = async (
     })
   }
   const tgt = await encodeTgt(omit(user, 'password'))
-  const st = await encodeSt(tgt)
+  const st = await encodeSt(tgt, service)
   return {
     tgt,
     st,

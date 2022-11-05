@@ -47,8 +47,8 @@ export async function verifyTgt(tgt: string) {
   return await verifyJwt(tgt)
 }
 
-export async function encodeSt(tgt: string) {
-  const st = `st_${crypto.randomUUID()}`
+export async function encodeSt(tgt: string, service: string) {
+  const st = `${service}:${crypto.randomUUID()}`
   await redis.setEx(generateStKey(st), TOKEN_DURATION_SECONDS, tgt)
   return st
 }
