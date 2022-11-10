@@ -12,6 +12,7 @@ export function generateSmsKey(mobile: string) {
 export function generateTgtKey(tgt: string) {
   return `tgt:${tgt}`
 }
+
 export function generateStKey(st: string) {
   return `st:${st}`
 }
@@ -37,11 +38,15 @@ export async function invalidateTgt(tgt: string) {
   await redis.del(generateTgtKey(tgt))
 }
 
+export async function invalidateSt(st: string) {
+  await redis.del(generateStKey(st))
+}
+
 export async function verifyTgt(tgt: string) {
-  const legalFlag = redis.get(generateTgtKey(tgt))
+  const legalFlag = await redis.get(generateTgtKey(tgt))
   if (!legalFlag) {
     throw genCustomError({
-      extensions: { customError: CustomError.INTERNAL_SERVER_ERROR },
+      extensions: { customError: CustomError.INVALID_AUTH },
     })
   }
   return await verifyJwt(tgt)
@@ -54,10 +59,10 @@ export async function encodeSt(tgt: string, service: string) {
 }
 
 export async function verifySt(st: string) {
-  const tgt = redis.get(generateStKey(st))
+  const tgt = await redis.get(generateStKey(st))
   if (!tgt) {
     throw genCustomError({
-      extensions: { customError: CustomError.INTERNAL_SERVER_ERROR },
+      extensions: { customError: CustomError.INVALID_AUTH },
     })
   }
   return tgt

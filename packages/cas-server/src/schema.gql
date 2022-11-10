@@ -30,10 +30,16 @@ type CreateUserRsp {
   id: ID!
 }
 
+input LogoutReq {
+  st: String!
+  invalidateTgtFlag: Boolean
+}
+
 type Mutation {
   sendSms(req: SendSmsReq!): String!
   register(req: CreateUserReq!): CreateUserRsp!
   login(req: LoginReq!): LoginRsp!
+  logout(req: LogoutReq!): Boolean!
 }
 
 type Query {

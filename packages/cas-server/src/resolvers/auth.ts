@@ -1,5 +1,12 @@
-import { omit } from 'lodash'
-import { encodeSt, encodeTgt, verifySmsCode } from '../business'
+import omit from 'lodash/omit'
+import {
+  encodeSt,
+  encodeTgt,
+  invalidateSt,
+  invalidateTgt,
+  verifySmsCode,
+  verifySt,
+} from '../business'
 import { encrypt } from '../common/auth'
 import { CustomError, genCustomError } from '../common/error'
 import { ValidationSchema } from '../common/validation'
@@ -106,4 +113,15 @@ export const login: MutationResolvers['login'] = async (
     tgt,
     st,
   }
+}
+
+export const logout: MutationResolvers['logout'] = async (_parent, args) => {
+  const { req } = args
+  const { st, invalidateTgtFlag } = req
+  if (invalidateTgtFlag) {
+    const tgt = await verifySt(st)
+    await invalidateTgt(tgt)
+  }
+  await invalidateSt(st)
+  return !!invalidateTgtFlag
 }

@@ -10,11 +10,7 @@ export function generateSmsCode(mobile: string) {
 
 export const SMS_CODE_EXPIRE = 60
 
-export const sendSms: MutationResolvers['sendSms'] = async (
-  _parent,
-  args,
-  context
-) => {
+export const sendSms: MutationResolvers['sendSms'] = async (_parent, args) => {
   const { req } = args
   const reqSchema = ValidationSchema.load(['mobile'])
   try {
