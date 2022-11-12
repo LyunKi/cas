@@ -1,16 +1,17 @@
 import omit from 'lodash/omit'
 import {
+  decodeTgt,
   encodeSt,
   encodeTgt,
   invalidateSt,
   invalidateTgt,
   verifySmsCode,
-  verifySt,
+  decodeSt,
 } from '../business'
 import { encrypt } from '../common/auth'
 import { CustomError, genCustomError } from '../common/error'
 import { ValidationSchema } from '../common/validation'
-import type { MutationResolvers } from '../generated/schema'
+import type { MutationResolvers, User } from '../generated/schema'
 
 export const register: MutationResolvers['register'] = async (
   _parent,
@@ -119,9 +120,34 @@ export const logout: MutationResolvers['logout'] = async (_parent, args) => {
   const { req } = args
   const { st, invalidateTgtFlag } = req
   if (invalidateTgtFlag) {
-    const tgt = await verifySt(st)
+    const tgt = await decodeSt(st)
     await invalidateTgt(tgt)
   }
   await invalidateSt(st)
   return !!invalidateTgtFlag
+}
+
+export const verifyTgt: MutationResolvers['verifyTgt'] = async (
+  _parent,
+  args
+) => {
+  const { req } = args
+  const { tgt, service } = req
+  const claims = await decodeTgt<User>(tgt)
+  const st = await encodeSt(tgt, service)
+  return {
+    user: claims,
+    st,
+  }
+}
+
+export const verifySt: MutationResolvers['verifySt'] = async (
+  _parent,
+  args
+) => {
+  const { req } = args
+  const { st } = req
+  const tgt = await decodeSt(st)
+  const claims = await decodeTgt<User>(tgt)
+  return claims
 }

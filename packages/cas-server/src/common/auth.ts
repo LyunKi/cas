@@ -51,7 +51,7 @@ export function encodeJwt(data: any): Promise<string> {
   })
 }
 
-export function verifyJwt(encoded: string) {
+export function verifyJwt<T = any>(encoded: string): Promise<T> {
   return new Promise((resolve, reject) => {
     const secret = process.env['JWT_SECRET']
     if (!secret) {
@@ -69,7 +69,7 @@ export function verifyJwt(encoded: string) {
           reject(error)
           return
         }
-        resolve(decoded)
+        resolve(decoded as T)
       }
     )
   })

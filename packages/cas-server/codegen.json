@@ -4,7 +4,10 @@
     "./src/generated/schema.d.ts": {
       "config": {
         "useIndexSignature": true,
-        "contextType": "../context#Context"
+        "contextType": "../context#Context",
+        "scalars": {
+          "DateTime": "Date"
+        }
       },
       "plugins": ["typescript", "typescript-resolvers"]
     }

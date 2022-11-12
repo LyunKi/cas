@@ -1,6 +1,14 @@
+scalar DateTime
+
 type LoginRsp {
   st: String!
   tgt: String!
+}
+
+enum Gender {
+  MALE
+  FEMALE
+  UNKNOWN
 }
 
 input LoginReq {
@@ -35,11 +43,42 @@ input LogoutReq {
   invalidateTgtFlag: Boolean
 }
 
+input VerifyTgtReq {
+  tgt: String!
+  service: String!
+}
+
+type User {
+  id: String!
+  mobile: String
+  emial: String
+  avatar: String
+  firstName: String
+  lastName: String
+  provider: String
+  gender: Gender!
+  createdBy: String!
+  updatedBy: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type VerifyTgtRsp {
+  user: User!
+  st: String!
+}
+
+input VerifyStReq {
+  st: String!
+}
+
 type Mutation {
   sendSms(req: SendSmsReq!): String!
   register(req: CreateUserReq!): CreateUserRsp!
   login(req: LoginReq!): LoginRsp!
   logout(req: LogoutReq!): Boolean!
+  verifyTgt(req: VerifyTgtReq!): VerifyTgtRsp!
+  verifySt(req: VerifyStReq!): User!
 }
 
 type Query {

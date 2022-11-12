@@ -42,14 +42,14 @@ export async function invalidateSt(st: string) {
   await redis.del(generateStKey(st))
 }
 
-export async function verifyTgt(tgt: string) {
+export async function decodeTgt<T = any>(tgt: string) {
   const legalFlag = await redis.get(generateTgtKey(tgt))
   if (!legalFlag) {
     throw genCustomError({
       extensions: { customError: CustomError.INVALID_AUTH },
     })
   }
-  return await verifyJwt(tgt)
+  return await verifyJwt<T>(tgt)
 }
 
 export async function encodeSt(tgt: string, service: string) {
@@ -58,7 +58,7 @@ export async function encodeSt(tgt: string, service: string) {
   return st
 }
 
-export async function verifySt(st: string) {
+export async function decodeSt(st: string) {
   const tgt = await redis.get(generateStKey(st))
   if (!tgt) {
     throw genCustomError({
