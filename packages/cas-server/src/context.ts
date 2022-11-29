@@ -3,7 +3,11 @@ import { I18n } from 'i18n-js/dist/require'
 import { createClient } from 'redis'
 import { AcceptLanguageParser } from '@cloud-dragon/common-utils'
 import type { I18nOptions } from 'i18n-js/typings'
-import { DEFAULT_LOCALE, SUPPORTED_LOCALES } from './common/constants'
+import {
+  CHINESE_LOCALE,
+  DEFAULT_LOCALE,
+  SUPPORTED_LOCALES,
+} from './common/constants'
 import { translations } from './i18n'
 
 const prisma = new PrismaClient()
@@ -37,7 +41,7 @@ export async function createContext(args) {
   )
   const i18nOptions: any = {}
   if (optimalLocale) {
-    i18nOptions.locale = 'zh-CN'
+    i18nOptions.locale = CHINESE_LOCALE
   }
 
   if (!redis.isReady) {

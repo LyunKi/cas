@@ -136,3 +136,4 @@ dist
 dist/
 .yalc/
 .expo/
+pnpm-lock.yaml
