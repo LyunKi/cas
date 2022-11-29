@@ -135,3 +135,4 @@ dist
 .env.local
 dist/
 .yalc/
+.expo/
