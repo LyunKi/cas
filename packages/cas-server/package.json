@@ -14,8 +14,8 @@
     "docker:down": "docker-compose down",
     "test:up": "pnpm docker:up && dotenv -e .env.test pnpm prisma migrate deploy",
     "test:down": "pnpm docker:down",
-    "test": "pnpm test:up && dotenv -e .env.test jest",
-    "test:watch": "pnpm test:up && pnpm dotenv -e .env.test jest -- --watch"
+    "test": "pnpm test:up && dotenv -e .env.test jest -- -i && pnpm test:down",
+    "test:watch": "pnpm test:up && pnpm dotenv -e .env.test jest -- -i --watch && pnpm test:down"
   },
   "keywords": [],
   "license": "MIT",

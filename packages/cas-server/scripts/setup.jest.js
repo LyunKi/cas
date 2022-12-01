@@ -1,7 +1,7 @@
-const {spawn} = require('child_process');
+// const {spawn} = require('child_process');
 
-const teardown = ()=> {
-  spawn('pnpm', ['test:down'])
-}
+// const teardown = ()=> {
+//   spawn('pnpm', ['test:down'])
+// }
 
-afterAll(teardown);
+// afterAll(teardown);
