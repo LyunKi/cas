@@ -1,17 +1,12 @@
-import path from 'path'
 import { createContext, redis } from '@cas-server/context'
 import {
-  generateSmsKey,
   SMS_CODE_EXPIRE,
   generateSmsCode,
 } from '@cas-server/resolvers/sms'
-import dotenv from 'dotenv'
+import {
+  generateSmsKey
+} from '@cas-server/business'
 import { server } from '@cas-server/server'
-
-dotenv.config({
-  path: path.resolve(process.cwd(), '.env.test'),
-  override: true,
-})
 
 describe('Cas server', () => {
   afterEach(() => {

@@ -11,8 +11,8 @@ const typeDefs = fs.readFileSync('src/schema.gql', {
 export const server = new ApolloServer({
   typeDefs: [DateTimeTypeDefinition, typeDefs],
   resolvers: {
-    DateTimeResolver,
-    resolvers,
+    DateTime: DateTimeResolver,
+    ...resolvers,
   },
   plugins: [ErrorResponsePlugin, LoggerPlugin, ShutdownPlugin],
 })

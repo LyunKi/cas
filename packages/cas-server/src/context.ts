@@ -40,7 +40,7 @@ export async function createContext(args) {
     SUPPORTED_LOCALES
   )
   const i18nOptions: any = {}
-  if (optimalLocale) {
+  if (!optimalLocale) {
     i18nOptions.locale = CHINESE_LOCALE
   }
 

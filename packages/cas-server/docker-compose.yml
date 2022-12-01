@@ -1,0 +1,24 @@
+# Set the version of docker compose to use
+version: '3'
+
+# The containers that compose the project
+services:
+  redis:
+    image: redis:latest
+    restart: always
+    ports:
+      - "6379:6379" 
+    container_name: integration-tests-redis
+    command: /bin/sh -c "redis-server --requirepass $$REDIS_PASS"
+    env_file:
+      - .env.test
+  db:
+    image: postgres:13
+    restart: always
+    container_name: integration-tests-prisma
+    ports:
+      - '5432:5432'
+    environment:
+      POSTGRES_USER: prisma
+      POSTGRES_PASSWORD: prisma
+      POSTGRES_DB: tests
