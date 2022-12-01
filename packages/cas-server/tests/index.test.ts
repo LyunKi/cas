@@ -1,11 +1,6 @@
 import { createContext, redis } from '@cas-server/context'
-import {
-  SMS_CODE_EXPIRE,
-  generateSmsCode,
-} from '@cas-server/resolvers/sms'
-import {
-  generateSmsKey
-} from '@cas-server/business'
+import { SMS_CODE_EXPIRE, generateSmsCode } from '@cas-server/resolvers/sms'
+import { generateSmsKey } from '@cas-server/business'
 import { server } from '@cas-server/server'
 
 describe('Cas server', () => {
@@ -60,6 +55,5 @@ describe('Cas server', () => {
       SMS_CODE_EXPIRE,
       generateSmsCode(testMobile)
     )
-    await redis.del(testKey)
   })
 })

@@ -1,13 +1,15 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack'
 import React, { useCallback, useEffect } from 'react'
+import { Image } from 'react-native'
 import { Formik } from 'formik'
 import * as Yup from 'yup'
 import {
   Button,
-  Divider,
   Input,
   SafeArea,
-  TopNavigation,
+  View,
+  Text,
+  ThemeManager,
 } from '@cloud-design/components'
 import { MobileInput } from '../components'
 import Navigator from '../navigation/Navigator'
@@ -117,9 +119,74 @@ export default function Login(props: LoginProps) {
   // const { service, redirectUrl } = route.params
   // useTgtCheck({ service, redirectUrl, setValidating })
   return (
-    <SafeArea>
-      <TopNavigation title={I18n.t('companyName')} />
-      <Divider />
+    <SafeArea
+      ts={{
+        backgroundColor: '$color.brand.50',
+        flexDirection: 'column',
+        flex: 1,
+      }}
+    >
+      <View
+        ts={{
+          backgroundColor: '$color.brand.500',
+          flexDirection: 'column',
+          alignItems: 'center',
+          height: 324,
+          borderBottomLeftRadius: '$rem:1',
+          borderBottomRightRadius: '$rem:1',
+        }}
+      >
+        <Image
+          style={ThemeManager.themed({
+            width: 90,
+            height: 90,
+            borderRadius: 20,
+            marginTop: '$rem:5',
+          })}
+          source={require('../../assets/images/logo.png')}
+        />
+        <Text
+          size={'lg'}
+          ts={{
+            marginTop: '$rem:1.5',
+            color: '$color.font.reverse',
+            fontWeight: '$fontWeight.semibold',
+          }}
+          value={I18n.t('companyName')}
+        />
+      </View>
+      <View
+        ts={{
+          marginHorizontal: '$rem:1',
+          posistion: 'relative',
+          top: '$rem:-6',
+          display: 'block',
+          marginTop: '$rem:1.5',
+        }}
+      >
+        <View
+          ts={{
+            backgroundColor: 'white',
+            width: 'calc(100% - 1rem)',
+            posistion: 'absolute',
+            left: 0,
+            top: 0,
+          }}
+        >
+          1
+        </View>
+        <View
+          ts={{
+            backgroundColor: 'white',
+            width: 'calc(100% - 1rem)',
+            posistion: 'absolute',
+            left: '$rem:1',
+            top: '$rem:3',
+          }}
+        >
+          2
+        </View>
+      </View>
       {/* <LoginForm service={service} redirectUrl={redirectUrl} /> */}
     </SafeArea>
   )
