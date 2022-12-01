@@ -158,7 +158,7 @@ export default function Login(props: LoginProps) {
       <View
         ts={{
           marginHorizontal: '$rem:1',
-          posistion: 'relative',
+          position: 'relative',
           top: '$rem:-6',
           display: 'block',
           marginTop: '$rem:1.5',
@@ -168,9 +168,11 @@ export default function Login(props: LoginProps) {
           ts={{
             backgroundColor: 'white',
             width: 'calc(100% - 1rem)',
-            posistion: 'absolute',
+            position: 'absolute',
             left: 0,
             top: 0,
+            zIndex: 2,
+            borderRadius: '$rem:0.75',
           }}
         >
           1
@@ -182,6 +184,8 @@ export default function Login(props: LoginProps) {
             posistion: 'absolute',
             left: '$rem:1',
             top: '$rem:3',
+            zIndex: 1,
+            borderRadius: '$rem:0.75',
           }}
         >
           2

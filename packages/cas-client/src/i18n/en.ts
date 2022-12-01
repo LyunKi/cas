@@ -1,5 +1,5 @@
 const MESSAGES = {
-    companyName: '云龙科技',
+    companyName: 'Cloud Dragon',
     loading: '加载中',
     countryPicker: {
         title: '国家或地区',
