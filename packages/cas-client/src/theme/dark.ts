@@ -1,1 +1,7 @@
-export const dark = {}
+export const dark = {
+    color: {
+        bg: {
+            secondaryGrey: '#F5F5F5'
+        }
+    }
+}

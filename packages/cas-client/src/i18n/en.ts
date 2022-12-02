@@ -1,5 +1,8 @@
 const MESSAGES = {
     companyName: 'Cloud Dragon',
+    business: {
+        newUserRegister: 'Register'
+    },
     loading: '加载中',
     countryPicker: {
         title: '国家或地区',

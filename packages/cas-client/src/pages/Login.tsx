@@ -123,7 +123,7 @@ export default function Login(props: LoginProps) {
       ts={{
         backgroundColor: '$color.brand.50',
         flexDirection: 'column',
-        flex: 1,
+        minHeight: '$vh:100',
       }}
     >
       <View
@@ -166,29 +166,38 @@ export default function Login(props: LoginProps) {
       >
         <View
           ts={{
-            backgroundColor: 'white',
+            backgroundColor: '$color.bg.layout',
             width: 'calc(100% - 1rem)',
             position: 'absolute',
             left: 0,
             top: 0,
             zIndex: 2,
             borderRadius: '$rem:0.75',
+            minHeight: 391,
           }}
         >
           1
         </View>
         <View
           ts={{
-            backgroundColor: 'white',
+            backgroundColor: '$color.bg.secondaryGrey',
             width: 'calc(100% - 1rem)',
             posistion: 'absolute',
             left: '$rem:1',
             top: '$rem:3',
             zIndex: 1,
             borderRadius: '$rem:0.75',
+            minHeight: 391,
+            alignItems: 'flex-end',
+            justifyContent: 'center',
           }}
         >
-          2
+          <Button
+            ts={{ height: '$rem:3' }}
+            status="primary"
+            variant="link"
+            value={I18n.t('business.newUserRegister')}
+          />
         </View>
       </View>
       {/* <LoginForm service={service} redirectUrl={redirectUrl} /> */}

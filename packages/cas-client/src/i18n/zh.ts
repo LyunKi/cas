@@ -1,6 +1,9 @@
 const MESSAGES = {
   companyName: '云龙科技',
   loading: '加载中',
+  business: {
+    newUserRegister: '新用户注册'
+  },
   countryPicker: {
     title: '国家或地区',
     placeholder: '请选择您所在的国家或地区',

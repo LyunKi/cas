@@ -1,5 +1,7 @@
 export const light = {
-    bg: {
-        secondaryGrey: '#F5F5F5'
+    color: {
+        bg: {
+            secondaryGrey: '#F5F5F5'
+        }
     }
 }
