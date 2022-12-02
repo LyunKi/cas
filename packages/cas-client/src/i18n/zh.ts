@@ -2,7 +2,9 @@ const MESSAGES = {
   companyName: '云龙科技',
   loading: '加载中',
   business: {
-    newUserRegister: '新用户注册'
+    newUserRegister: '新用户注册',
+    loginByPassword: '账号密码登录',
+    loginByVerifySmsCode: '短信验证码登录'
   },
   countryPicker: {
     title: '国家或地区',

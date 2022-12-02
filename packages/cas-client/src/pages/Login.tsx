@@ -5,19 +5,19 @@ import { Formik } from 'formik'
 import * as Yup from 'yup'
 import {
   Button,
-  Input,
   SafeArea,
   View,
   Text,
   ThemeManager,
+  Input,
 } from '@cloud-design/components'
-import { MobileInput } from '../components'
 import Navigator from '../navigation/Navigator'
 import { RootStackParamList } from '../types'
 import { FormHelper, Schema, Storage } from '../common/utils'
 import { TGT_STORAGE_KEY } from '../common/constants/auth'
 import { Logger } from '../common/utils/Logger'
 import I18n from '../i18n'
+import { MobileInput } from '../components'
 
 interface LoginProps
   extends NativeStackScreenProps<RootStackParamList, 'Login'> {}
@@ -70,46 +70,68 @@ function LoginForm(props) {
     [redirectUrl, service]
   )
   return (
-    <Formik
-      initialValues={INITIAL_VALUES}
-      validationSchema={loginSchema}
-      onSubmit={login}
-    >
-      {(formikProps) => {
-        const {
-          handleChange,
-          handleBlur,
-          values,
-          touched,
-          errors,
-          handleSubmit,
-        } = formikProps
-        return (
-          <>
-            <MobileInput
-              onChange={handleChange}
-              onBlur={handleBlur}
-              placeholder={I18n.t('schema.mobile.placeholder')}
-              value={values.mobile}
-              error={touched.mobile?.number && errors.mobile}
-            />
-            <Input
-              format={{
-                type: 'password',
-              }}
-              {...FormHelper.generateFormInputProps({
-                formikProps,
-                fieldName: 'password',
-              })}
-            />
-            <Button
-              onPress={() => handleSubmit()}
-              value={I18n.t('actions.login')}
-            />
-          </>
-        )
+    <View
+      ts={{
+        flexDirection: 'column',
+        paddingHorizontal: '$rem:1',
+        paddingVertical: '$rem:2.5',
+        width: '100%',
       }}
-    </Formik>
+    >
+      <Text
+        ts={{
+          fontSize: 22,
+          paddingBottom: '$rem:2',
+          fontWeight: '$fontWeight.semibold',
+        }}
+        value={I18n.t('business.loginByPassword')}
+      />
+      <Formik
+        initialValues={INITIAL_VALUES}
+        validationSchema={loginSchema}
+        onSubmit={login}
+      >
+        {(formikProps) => {
+          const {
+            handleChange,
+            handleBlur,
+            values,
+            touched,
+            errors,
+            handleSubmit,
+          } = formikProps
+          return (
+            <View ts={{ flexDirection: 'column', gap: '$rem:1.5' }}>
+              <MobileInput
+                onChange={handleChange}
+                onBlur={handleBlur}
+                placeholder={I18n.t('schema.mobile.placeholder')}
+                value={values.mobile}
+                error={touched.mobile?.number && errors.mobile}
+              />
+              <Input
+                format={{
+                  type: 'password',
+                }}
+                {...FormHelper.generateFormInputProps({
+                  formikProps,
+                  fieldName: 'password',
+                })}
+              />
+              <View>
+                <Text value="1" />
+                <Text value="2" />
+              </View>
+              <Button
+                status="primary"
+                onPress={() => handleSubmit()}
+                value={I18n.t('actions.login')}
+              />
+            </View>
+          )
+        }}
+      </Formik>
+    </View>
   )
 }
 
@@ -146,11 +168,12 @@ export default function Login(props: LoginProps) {
           source={require('../../assets/images/logo.png')}
         />
         <Text
-          size={'lg'}
+          size="lg"
           ts={{
             marginTop: '$rem:1.5',
-            color: '$color.font.reverse',
+            color: '$color.font.white',
             fontWeight: '$fontWeight.semibold',
+            fontSize: 22,
           }}
           value={I18n.t('companyName')}
         />
@@ -176,7 +199,7 @@ export default function Login(props: LoginProps) {
             minHeight: 391,
           }}
         >
-          1
+          <LoginForm service={''} redirectUrl={''} />
         </View>
         <View
           ts={{
@@ -200,7 +223,6 @@ export default function Login(props: LoginProps) {
           />
         </View>
       </View>
-      {/* <LoginForm service={service} redirectUrl={redirectUrl} /> */}
     </SafeArea>
   )
 }
