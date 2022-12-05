@@ -4,8 +4,8 @@ import { useColorScheme } from 'react-native'
 import React from 'react'
 import { extendTheme, GlobalProvider } from '@cloud-design/components'
 import useCachedResources from './common/utils/hooks/useCachedResources'
-import Navigation from './navigation'
 import { THEME_PACK } from './theme'
+import Auth from './pages/Auth'
 
 export default function App() {
   const isLoadingComplete = useCachedResources()
@@ -13,10 +13,14 @@ export default function App() {
   if (!isLoadingComplete) {
     return <AppLoading />
   }
+  const params = new URLSearchParams(window.location.search)
   return (
     <GlobalProvider themeMode={colorScheme} themePack={extendTheme(THEME_PACK)}>
       <StatusBar />
-      <Navigation colorScheme={colorScheme} />
+      <Auth
+        service={params.get('service')}
+        redirectUrl={params.get('redirectUrl')}
+      />
     </GlobalProvider>
   )
 }

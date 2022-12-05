@@ -1,5 +1,4 @@
-import { NativeStackScreenProps } from '@react-navigation/native-stack'
-import React, { useCallback, useEffect } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { Image } from 'react-native'
 import { Formik } from 'formik'
 import * as Yup from 'yup'
@@ -11,16 +10,16 @@ import {
   ThemeManager,
   Input,
 } from '@cloud-design/components'
-import Navigator from '../navigation/Navigator'
-import { RootStackParamList } from '../types'
 import { FormHelper, Schema, Storage } from '../common/utils'
 import { TGT_STORAGE_KEY } from '../common/constants/auth'
 import { Logger } from '../common/utils/Logger'
 import I18n from '../i18n'
 import { MobileInput } from '../components'
 
-interface LoginProps
-  extends NativeStackScreenProps<RootStackParamList, 'Login'> {}
+interface LoginProps {
+  service: string | null
+  redirectUrl: string | null
+}
 
 async function checkTgt(params) {
   const tgt = await Storage.getItem<string>(TGT_STORAGE_KEY)
@@ -31,7 +30,6 @@ async function checkTgt(params) {
   }
   try {
     // const { st } = await Api.post(VERIFY_TGT, { service, tgt })
-    Navigator.navigate(redirectUrl, { st })
   } catch (e) {
     Logger.info('Relogin: ', e)
   }
@@ -135,10 +133,16 @@ function LoginForm(props) {
   )
 }
 
+enum AuthType {
+  LOGINBYPASSWORD,
+  LOGINBYVERIFYCODE,
+  REGISTER,
+}
+
 export default function Login(props: LoginProps) {
-  const { route } = props
+  const [type, setType] = useState(AuthType.LOGINBYPASSWORD)
+  const { service, redirectUrl } = props
   // const [, setValidating] = useState(true)
-  // const { service, redirectUrl } = route.params
   // useTgtCheck({ service, redirectUrl, setValidating })
   return (
     <SafeArea
@@ -165,7 +169,7 @@ export default function Login(props: LoginProps) {
             borderRadius: 20,
             marginTop: '$rem:5',
           })}
-          source={require('../../assets/images/logo.png')}
+          source={require('../../assets/images/logo.jpg')}
         />
         <Text
           size="lg"
@@ -199,7 +203,7 @@ export default function Login(props: LoginProps) {
             minHeight: 391,
           }}
         >
-          <LoginForm service={''} redirectUrl={''} />
+          <LoginForm service={service} redirectUrl={redirectUrl} />
         </View>
         <View
           ts={{
