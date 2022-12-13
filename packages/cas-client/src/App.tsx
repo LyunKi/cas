@@ -15,7 +15,7 @@ export default function App() {
   }
   const params = new URLSearchParams(window.location.search)
   return (
-    <GlobalProvider themeMode={colorScheme} themePack={extendTheme(THEME_PACK)}>
+    <GlobalProvider themeMode={'light'} themePack={extendTheme(THEME_PACK)}>
       <StatusBar />
       <Auth
         service={params.get('service')}

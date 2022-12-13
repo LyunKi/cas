@@ -11,8 +11,8 @@ import {
   TopNavigation,
 } from '@cloud-design/components'
 import { RootStackParamList } from '../types'
-import { MobileInput, VerificationCodeInput } from '../components'
-import { Api, FormHelper, Schema } from '../common/utils'
+import { MobileInput } from '../components'
+import { FormHelper, Schema } from '../common/utils'
 import I18n from '../i18n'
 import MobileHelper from '../common/utils/MobileHelper'
 import { REGISTER } from '../common/constants'

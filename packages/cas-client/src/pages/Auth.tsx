@@ -9,12 +9,12 @@ import {
   Text,
   ThemeManager,
   Input,
+  FormField,
 } from '@cloud-design/components'
-import { FormHelper, Schema, Storage } from '../common/utils'
+import { Schema, Storage } from '../common/utils'
 import { TGT_STORAGE_KEY } from '../common/constants/auth'
 import { Logger } from '../common/utils/Logger'
 import I18n from '../i18n'
-import { MobileInput } from '../components'
 
 interface LoginProps {
   service: string | null
@@ -52,7 +52,7 @@ const INITIAL_VALUES = {
 
 const TOKEN_DURATION = 2 * 7 * 24 * 3600 * 1000
 
-function LoginForm(props) {
+function LoginByPasswordForm(props) {
   const { redirectUrl, service } = props
   const loginSchema = Yup.object().shape(Schema.load(['mobile', 'password']))
   const login = useCallback(
@@ -89,42 +89,49 @@ function LoginForm(props) {
         validationSchema={loginSchema}
         onSubmit={login}
       >
-        {(formikProps) => {
-          const {
-            handleChange,
-            handleBlur,
-            values,
-            touched,
-            errors,
-            handleSubmit,
-          } = formikProps
+        {(formConfig) => {
           return (
             <View ts={{ flexDirection: 'column', gap: '$rem:1.5' }}>
-              <MobileInput
-                onChange={handleChange}
-                onBlur={handleBlur}
-                placeholder={I18n.t('schema.mobile.placeholder')}
-                value={values.mobile}
-                error={touched.mobile?.number && errors.mobile}
+              <FormField
+                name="account"
+                formConfig={formConfig}
+                renderField={(props) => (
+                  <Input
+                    {...props}
+                    placeholder={I18n.t('schema.mobile.placeholder')}
+                  />
+                )}
               />
-              <Input
-                format={{
-                  type: 'password',
-                }}
-                {...FormHelper.generateFormInputProps({
-                  formikProps,
-                  fieldName: 'password',
-                })}
+              <FormField
+                name="password"
+                formConfig={formConfig}
+                renderField={(props) => (
+                  <Input
+                    {...props}
+                    format={{
+                      type: 'password',
+                    }}
+                    placeholder={I18n.t('schema.password.placeholder')}
+                  />
+                )}
               />
-              <View>
-                <Text value="1" />
-                <Text value="2" />
+              <View ts={{ justifyContent: 'space-between' }}>
+                <Button
+                  ts={{ height: '$rem:1' }}
+                  textTs={{ fontSize: '$fontSize.sm' }}
+                  variant="link"
+                  status="primary"
+                  value={I18n.t('business.loginByPassword')}
+                />
+                <Button
+                  ts={{ height: '$rem:1' }}
+                  textTs={{ fontSize: '$fontSize.sm' }}
+                  variant="link"
+                  status="primary"
+                  value={I18n.t('business.loginByVerifySmsCode')}
+                />
               </View>
-              <Button
-                status="primary"
-                onPress={() => handleSubmit()}
-                value={I18n.t('actions.login')}
-              />
+              <Button status="primary" value={I18n.t('actions.login')} />
             </View>
           )
         }}
@@ -134,13 +141,13 @@ function LoginForm(props) {
 }
 
 enum AuthType {
-  LOGINBYPASSWORD,
-  LOGINBYVERIFYCODE,
+  LOGIN_BY_PASSWORD,
+  LOGIN_BY_VERIFYCODE,
   REGISTER,
 }
 
 export default function Login(props: LoginProps) {
-  const [type, setType] = useState(AuthType.LOGINBYPASSWORD)
+  const [type, setType] = useState(AuthType.LOGIN_BY_PASSWORD)
   const { service, redirectUrl } = props
   // const [, setValidating] = useState(true)
   // useTgtCheck({ service, redirectUrl, setValidating })
@@ -203,7 +210,15 @@ export default function Login(props: LoginProps) {
             minHeight: 391,
           }}
         >
-          <LoginForm service={service} redirectUrl={redirectUrl} />
+          {
+            (type === AuthType.LOGIN_BY_PASSWORD,
+            (
+              <LoginByPasswordForm
+                service={service}
+                redirectUrl={redirectUrl}
+              />
+            ))
+          }
         </View>
         <View
           ts={{
@@ -219,12 +234,14 @@ export default function Login(props: LoginProps) {
             justifyContent: 'center',
           }}
         >
-          <Button
-            ts={{ height: '$rem:3' }}
-            status="primary"
-            variant="link"
-            value={I18n.t('business.newUserRegister')}
-          />
+          {type !== AuthType.REGISTER && (
+            <Button
+              ts={{ height: '$rem:3' }}
+              status="primary"
+              variant="link"
+              value={I18n.t('business.newUserRegister')}
+            />
+          )}
         </View>
       </View>
     </SafeArea>
