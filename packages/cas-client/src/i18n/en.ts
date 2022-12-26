@@ -1,7 +1,10 @@
 const MESSAGES = {
     companyName: 'Cloud Dragon',
     business: {
-        newUserRegister: 'Register'
+        newUserRegister: 'Register',
+        loginByPassword: 'Login by password',
+        loginByVerifySmsCode: 'Login by SMS code',
+        authing: 'Verifying...'
     },
     loading: '加载中',
     countryPicker: {

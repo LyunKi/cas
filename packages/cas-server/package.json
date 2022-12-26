@@ -8,7 +8,7 @@
     "postinstall": "pnpm prisma generate",
     "compile": "tsc",
     "start": "pnpm compile && node -r dotenv/config ./dist/index.js",
-    "dev": "nodemon --inspect --exec node --experimental-specifier-resolution=node --loader ts-node/esm -r dotenv/config ./src/index.ts",
+    "dev": "dotenv -e .env.test -- nodemon --inspect --exec node --experimental-specifier-resolution=node --loader ts-node/esm ./src/index.ts",
     "generate:schema-types": "graphql-codegen-esm",
     "docker:up": "docker-compose up -d",
     "docker:down": "docker-compose down",

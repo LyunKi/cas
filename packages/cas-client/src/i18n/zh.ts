@@ -4,7 +4,8 @@ const MESSAGES = {
   business: {
     newUserRegister: '新用户注册',
     loginByPassword: '账号密码登录',
-    loginByVerifySmsCode: '短信验证码登录'
+    loginByVerifySmsCode: '短信验证码登录',
+    authing: '权限校验中...'
   },
   countryPicker: {
     title: '国家或地区',

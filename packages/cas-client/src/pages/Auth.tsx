@@ -11,6 +11,7 @@ import {
   Input,
   FormField,
 } from '@cloud-design/components'
+import { gql, useMutation } from '@apollo/client'
 import { Schema, Storage } from '../common/utils'
 import { TGT_STORAGE_KEY } from '../common/constants/auth'
 import { Logger } from '../common/utils/Logger'
@@ -21,25 +22,42 @@ interface LoginProps {
   redirectUrl: string | null
 }
 
-async function checkTgt(params) {
-  const tgt = await Storage.getItem<string>(TGT_STORAGE_KEY)
-  const { service, redirectUrl, setValidating } = params
-  if (!tgt) {
-    setValidating(false)
-    return
+const VERIFY_TGT = gql`
+  mutation verifyTgt {
+    st
   }
-  try {
-    // const { st } = await Api.post(VERIFY_TGT, { service, tgt })
-  } catch (e) {
-    Logger.info('Relogin: ', e)
-  }
-}
+`
 
 function useTgtCheck(params) {
-  const { service, redirectUrl, setValidating } = params
+  const { service, redirectUrl, setVerifying } = params
+  const [verifyTgt] = useMutation(VERIFY_TGT)
   useEffect(() => {
-    checkTgt({ service, redirectUrl, setValidating })
-  }, [service, redirectUrl, setValidating])
+    const checkTgt = async () => {
+      const tgt = await Storage.getItem<string>(TGT_STORAGE_KEY)
+      if (!tgt) {
+        setVerifying(false)
+        return
+      }
+      try {
+        const { data } = await verifyTgt({
+          variables: {
+            tgt,
+            service,
+          },
+        })
+        if (redirectUrl) {
+          const url = new URL(redirectUrl)
+          url.searchParams?.set('st', data.st)
+          window.location.replace(url)
+        }
+      } catch (e) {
+        Logger.info('Failed to verify tgt: ', e)
+      } finally {
+        setVerifying(false)
+      }
+    }
+    checkTgt()
+  }, [service, redirectUrl, verifyTgt, setVerifying])
 }
 
 const INITIAL_VALUES = {
@@ -53,7 +71,7 @@ const INITIAL_VALUES = {
 const TOKEN_DURATION = 2 * 7 * 24 * 3600 * 1000
 
 function LoginByPasswordForm(props) {
-  const { redirectUrl, service } = props
+  const { redirectUrl, service, verifying } = props
   const loginSchema = Yup.object().shape(Schema.load(['mobile', 'password']))
   const login = useCallback(
     async (values) => {
@@ -91,9 +109,10 @@ function LoginByPasswordForm(props) {
       >
         {(formConfig) => {
           return (
-            <View ts={{ flexDirection: 'column', gap: '$rem:1.5' }}>
+            <View ts={{ flexDirection: 'column' }}>
               <FormField
                 name="account"
+                ts={{ height: '$rem:4' }}
                 formConfig={formConfig}
                 renderField={(props) => (
                   <Input
@@ -104,6 +123,7 @@ function LoginByPasswordForm(props) {
               />
               <FormField
                 name="password"
+                ts={{ height: '$rem:4' }}
                 formConfig={formConfig}
                 renderField={(props) => (
                   <Input
@@ -115,23 +135,32 @@ function LoginByPasswordForm(props) {
                   />
                 )}
               />
-              <View ts={{ justifyContent: 'space-between' }}>
+              <View ts={{ justifyContent: 'space-between', height: '$rem:2' }}>
                 <Button
-                  ts={{ height: '$rem:1' }}
+                  loading={verifying}
+                  loadingText={I18n.t('business.authing')}
+                  ts={{ height: '$rem:1', paddingHorizontal: '$rem:1' }}
                   textTs={{ fontSize: '$fontSize.sm' }}
                   variant="link"
                   status="primary"
                   value={I18n.t('business.loginByPassword')}
                 />
                 <Button
-                  ts={{ height: '$rem:1' }}
+                  loading={verifying}
+                  loadingText={I18n.t('business.authing')}
+                  ts={{ height: '$rem:1', paddingHorizontal: '$rem:1' }}
                   textTs={{ fontSize: '$fontSize.sm' }}
                   variant="link"
                   status="primary"
                   value={I18n.t('business.loginByVerifySmsCode')}
                 />
               </View>
-              <Button status="primary" value={I18n.t('actions.login')} />
+              <Button
+                loading={verifying}
+                loadingText={I18n.t('business.authing')}
+                status="primary"
+                value={I18n.t('actions.login')}
+              />
             </View>
           )
         }}
@@ -149,8 +178,8 @@ enum AuthType {
 export default function Login(props: LoginProps) {
   const [type, setType] = useState(AuthType.LOGIN_BY_PASSWORD)
   const { service, redirectUrl } = props
-  // const [, setValidating] = useState(true)
-  // useTgtCheck({ service, redirectUrl, setValidating })
+  const [verifying, setVerifying] = useState(true)
+  useTgtCheck({ service, redirectUrl, setVerifying })
   return (
     <SafeArea
       ts={{
@@ -210,15 +239,13 @@ export default function Login(props: LoginProps) {
             minHeight: 391,
           }}
         >
-          {
-            (type === AuthType.LOGIN_BY_PASSWORD,
-            (
-              <LoginByPasswordForm
-                service={service}
-                redirectUrl={redirectUrl}
-              />
-            ))
-          }
+          {type === AuthType.LOGIN_BY_PASSWORD && (
+            <LoginByPasswordForm
+              verifying={verifying}
+              service={service}
+              redirectUrl={redirectUrl}
+            />
+          )}
         </View>
         <View
           ts={{
@@ -236,6 +263,8 @@ export default function Login(props: LoginProps) {
         >
           {type !== AuthType.REGISTER && (
             <Button
+              loading={verifying}
+              loadingText={I18n.t('business.authing')}
               ts={{ height: '$rem:3' }}
               status="primary"
               variant="link"
