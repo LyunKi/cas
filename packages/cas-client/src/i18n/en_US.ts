@@ -18,25 +18,25 @@ const MESSAGES = {
     },
     actions: {
         register: '注册',
-        login: '登录',
+        login: 'Login',
     },
     errors: {
         required: '{{name}}不能为空',
     },
     schema: {
         verificationCode: {
-            name: '验证码',
-            placeholder: '请输入您的验证码',
-            sendTip: '发送验证码',
+            name: 'SMS code',
+            placeholder: 'Please input your SMS code',
+            sendTip: 'Send SMS code',
         },
         password: {
-            name: '密码',
-            placeholder: '请输入您的密码',
+            name: 'Password',
+            placeholder: 'Please input your password',
             limit: '密码长度不能超过30个字符',
         },
         mobile: {
-            name: '手机号',
-            placeholder: '请输入您的手机号',
+            name: 'Mobile',
+            placeholder: 'Please input your mobile',
             limit: '您输入的手机号不合法',
         },
     },

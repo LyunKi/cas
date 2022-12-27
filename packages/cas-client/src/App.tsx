@@ -21,8 +21,9 @@ export default function App() {
     return <AppLoading />
   }
   const params = new URLSearchParams(window.location.search)
+  const theme = params.get('theme') ?? colorScheme
   return (
-    <GlobalProvider themeMode={'light'} themePack={extendTheme(THEME_PACK)}>
+    <GlobalProvider themeMode={theme} themePack={extendTheme(THEME_PACK)}>
       <ApolloProvider client={client}>
         <StatusBar />
         <Auth

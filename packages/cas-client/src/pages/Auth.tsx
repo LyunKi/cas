@@ -10,6 +10,7 @@ import {
   ThemeManager,
   Input,
   FormField,
+  Icon,
 } from '@cloud-design/components'
 import { gql, useMutation } from '@apollo/client'
 import { Schema, Storage } from '../common/utils'
@@ -34,7 +35,7 @@ function useTgtCheck(params) {
   useEffect(() => {
     const checkTgt = async () => {
       const tgt = await Storage.getItem<string>(TGT_STORAGE_KEY)
-      if (!tgt) {
+      if (!tgt || !service) {
         setVerifying(false)
         return
       }
@@ -127,6 +128,19 @@ function LoginByPasswordForm(props) {
                 formConfig={formConfig}
                 renderField={(props) => (
                   <Input
+                    renderLeft={(props) => (
+                      <View
+                        ts={{
+                          width: 32,
+                          height: 32,
+                          marginHorizontal: 4,
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                        }}
+                      >
+                        <Icon {...props} name="lock-outline" />
+                      </View>
+                    )}
                     {...props}
                     format={{
                       type: 'password',
