@@ -135,16 +135,9 @@ function LoginByPasswordForm(props) {
                   />
                 )}
               />
-              <View ts={{ justifyContent: 'space-between', height: '$rem:2' }}>
-                <Button
-                  loading={verifying}
-                  loadingText={I18n.t('business.authing')}
-                  ts={{ height: '$rem:1', paddingHorizontal: '$rem:1' }}
-                  textTs={{ fontSize: '$fontSize.sm' }}
-                  variant="link"
-                  status="primary"
-                  value={I18n.t('business.loginByPassword')}
-                />
+              <View
+                ts={{ justifyContent: 'space-between', height: '$rem:2.5' }}
+              >
                 <Button
                   loading={verifying}
                   loadingText={I18n.t('business.authing')}
@@ -153,6 +146,15 @@ function LoginByPasswordForm(props) {
                   variant="link"
                   status="primary"
                   value={I18n.t('business.loginByVerifySmsCode')}
+                />
+                <Button
+                  loading={verifying}
+                  loadingText={I18n.t('business.authing')}
+                  ts={{ height: '$rem:1', paddingHorizontal: '$rem:1' }}
+                  textTs={{ fontSize: '$fontSize.sm' }}
+                  variant="link"
+                  status="primary"
+                  value={I18n.t('business.forgetPassword')}
                 />
               </View>
               <Button

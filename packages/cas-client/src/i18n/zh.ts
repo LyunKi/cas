@@ -5,6 +5,7 @@ const MESSAGES = {
     newUserRegister: '新用户注册',
     loginByPassword: '账号密码登录',
     loginByVerifySmsCode: '短信验证码登录',
+    forgetPassword: '忘记密码',
     authing: '权限校验中...'
   },
   countryPicker: {

@@ -4,6 +4,7 @@ const MESSAGES = {
         newUserRegister: 'Register',
         loginByPassword: 'Login by password',
         loginByVerifySmsCode: 'Login by SMS code',
+        forgetPassword: 'Forgot your password',
         authing: 'Verifying...'
     },
     loading: '加载中',
